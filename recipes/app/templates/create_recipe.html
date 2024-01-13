@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Recipe</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='create_recipe.css') }}">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <h1>Add new recipe!</h1>
+            <div class="nav_right">
+                <a href="/recipes">Back to recipes</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </nav>
+            
+        <main>
+            <form action="/add_recipe" method="post">
+                {%with messages=get_flashed_messages(category_filter=['recipe'])%}
+                        {%if messages%}
+                            {%for message in messages%}
+                                <p>{{message}}</p>
+                            {%endfor%}
+                        {%endif%}
+                    {%endwith%}
+                <div class="form_left">
+                    <input type="hidden" name="user_id" value="{{session['user_id']}}">
+                    <label for="name">
+                        Name:
+                        <input type="text" name="name">
+                    </label>
+                    <label for="description">
+                        Description:
+                        <textarea name="description" cols="30" rows="10"></textarea>
+                    </label>
+                    <label for="instructions">
+                        Instructions:
+                        <textarea name="instructions" cols="30" rows="10"></textarea>
+                    </label>
+                </div>
+                <div class="form_right">
+                    <label for="date_cooked">
+                        Date Cooked:
+                        <input type="date" name="date_cooked">
+                    </label>
+                    <label for="less_than_30">Less than 30?</label>
+                    <label>Yes</label>
+                    <input type="radio" name="less_than_30" value=1 >
+                    <label>No</label>
+                    <input type="radio" name="less_than_30" value=0 >
+                    <button>Submit</button>
+                </div>
+            </form>
+        </main>
+    </div>
+</body>
+</html>

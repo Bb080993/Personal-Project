@@ -1,0 +1,25 @@
+Project Summary:
+
+Forgot the Plot!
+
+The basic goal for my project is to create a website that allows users to summarize the plot of a book they just read. My reasoning for this is:
+
+1. Sometimes you read a new release, and the next book isn't out for a year or so. And then you read the 2nd one and the 3rd book isn't out for another year etc. Many readers end up needing to go back and reread the previous books so they can remember what happens before the next book is released. With "Forgot the Plot" the user can write all details of the plot so they can just read their summary and do not need to spend all that time rereading, or being confused as to what happens in future installments.
+
+2. Sometimes you're reading a book or series and want to know what happens next, but are not invested enough to continue on. Users will be able to search plot summaries by other users to find out what happens in the book without having to finish a series that they weren't enjoying.
+
+Key features:
+
+Users will be able to:
+-login
+-logout
+-create their own plot summaries for books they have read (one to many relationship-one user, many plot summaries)
+-bonus feature: each plot summary can have multiple characters added to the page
+-users can click on each book title and view a page containing all that books summary information
+-users can edit their submission
+-users can delete their submission
+-bonus feature: users can search by title for plot summaries created by other users
+
+I will be using python to complete my project.
+
+-Brittany Francis

@@ -1,0 +1,140 @@
+Validations in html:
+
+{%with messages=get_flashed_messages(category_filter=[''])%}
+    {%if messages%}
+        {%for message in messages%}
+            <p>{{message}}</p>
+        {%endfor%}
+    {%endif%}
+{%endwith%}
+
+
+EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
+
+*Make sure each page has:
+if not "user_id" in session:
+        return redirect("/")
+
+Login and Registration Code:
+
+Controller:
+from app import app
+from flask import Flask, render_template, redirect, request, session, flash
+from app.models.user_model import  User
+from flask_bcrypt import Bcrypt
+bcrypt=Bcrypt(app)
+
+@app.route('/')          
+def user_form():
+    return render_template("login_registration.html")
+
+@app.route("/register", methods=["POST"])
+def register_user():
+    
+    form_data={
+        "first_name": request.form["first_name"],
+        "last_name": request.form["last_name"],
+        "email": request.form["email"],
+        "password": request.form["password"],
+        "confirm_password": request.form["confirm_password"]
+    }
+    if not User.validate_user(form_data):
+        return redirect('/')
+    hash_pw= bcrypt.generate_password_hash(request.form['password'])
+    hash_confirm_pw= bcrypt.generate_password_hash(request.form["confirm_password"])
+    data= {
+        "first_name": request.form["first_name"],
+        "last_name": request.form["last_name"],
+        "email": request.form["email"],
+        "password": hash_pw,
+        "confirm_password": hash_confirm_pw
+    }
+    user=User.insert_user(data)
+    session["user_id"]=user
+    return redirect ("/recipes")
+
+@app.route('/login', methods=["POST"])
+def login_user():
+    data={
+        "email":request.form["email"]
+    }
+    user_in_db=User.find_user_by_email(data)
+    if not user_in_db:
+        flash("Invalid email/password", "login")
+        return redirect('/')
+    if not bcrypt.check_password_hash(user_in_db.password, request.form["password"]):
+        flash("Invalid email/password", "login")
+        return redirect('/')
+
+    session["user_id"]=user_in_db.id
+
+    return redirect("/recipes")
+
+@app.route('/dashboard/<int:id>')
+def dashboard_page(id):
+    if not "user_id" in session:
+        return redirect('/')
+    
+    data={
+        'id':id
+    }
+    one_user=User.get_one_user(data)
+    print(one_user)
+    session["first_name"]=one_user['first_name']
+    return render_template ("welcome_dashboard.html")
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect ("/")
+
+ Model:
+
+    @classmethod
+    def find_user_by_email(cls, email):
+        query="""SELECT * FROM users WHERE email=%(email)s"""
+        response=connectToMySQL(cls.DB).query_db(query, email)
+
+        if len(response)<1:
+            return False
+        return cls(response[0])
+
+Extra Validations:
+@app.route("/add_recipe", methods=["POST"])
+def add_recipe():
+
+   
+    if not Recipe.validate_new_recipe(request.form):
+        return redirect("/create/recipe")
+    
+
+    data={
+        "user_id":request.form["user_id"],
+        "name":request.form["name"],
+        "description":request.form["description"],
+        "instructions":request.form["instructions"],
+        "date_cooked":request.form["date_cooked"],
+        "less_than_30":request.form["less_than_30"]
+    } 
+    Recipe.create_recipe(data)
+    return redirect("/recipes")
+
+    def validate_new_recipe(data):
+        is_valid=True
+
+        if len(data["name"])<3:
+            flash("Name must be at least 3 characters.",'recipe')
+            is_valid=False
+        if len(data["description"])<3:
+            flash("Description must be at least 3 characters.", 'recipe')
+            is_valid=False
+        if len(data["instructions"])<3:
+            flash("Instructions must be at least 3 characters.", 'recipe')
+            is_valid=False
+        if not data["date_cooked"]:
+            flash("Date cooked required", 'recipe')
+            is_valid=False
+        if "less_than_30" not in data:
+            flash("Does your recipe take less than 30 minutes?", 'recipe')
+            is_valid=False
+        return is_valid

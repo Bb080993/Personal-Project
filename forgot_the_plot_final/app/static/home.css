@@ -1,0 +1,21 @@
+/*To insert into HTML use*/ 
+/*<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">*/
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #F9F7F4;
+    color:darkmagenta;
+}
+
+.container{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+    width: 100%;
+}
+
+

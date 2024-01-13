@@ -1,0 +1,99 @@
+Validations in html:
+
+{%with messages=get_flashed_messages(category_filter=[''])%}
+    {%if messages%}
+        {%for message in messages%}
+            <p>{{message}}</p>
+        {%endfor%}
+    {%endif%}
+{%endwith%}
+
+
+EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$') 
+
+Login and Registration Code:
+
+Controller:
+from app import app
+from flask import Flask, render_template, redirect, request, session, flash
+from app.models.user_model import  User
+from flask_bcrypt import Bcrypt
+bcrypt=Bcrypt(app)
+
+@app.route('/')          
+def user_form():
+    return render_template("login_registration.html")
+
+@app.route("/register", methods=["POST"])
+def register_user():
+    print(request.form)
+    data={
+        "email": request.form["email"]
+    }
+    print(data)
+    if not User.validate_registration(request.form):
+        return redirect('/')
+    if User.find_user_by_email(data):
+        flash("User already exists", "register")
+        return redirect("/")
+    hash_pw= bcrypt.generate_password_hash(request.form['password'])
+    hash_confirm_pw= bcrypt.generate_password_hash(request.form["confirm_password"])
+    data= {
+        "first_name": request.form["first_name"],
+        "last_name": request.form["last_name"],
+        "email": request.form["email"],
+        "password": hash_pw,
+        "confirm_password": hash_confirm_pw
+    }
+    
+    user=User.insert_user(data)
+    session["user_id"]=user
+
+    return redirect (f"/wall/{session['user_id']}")
+
+@app.route('/login', methods=["POST"])
+def login_user():
+    data={
+        "email":request.form["email"]
+    }
+    user_in_db=User.find_user_by_email(data)
+    if not user_in_db:
+        flash("Invalid email/password", "login")
+        return redirect('/')
+    if not bcrypt.check_password_hash(user_in_db.password, request.form["password"]):
+        flash("Invalid email/password", "login")
+        return redirect('/')
+
+    
+    session["user_id"]=user_in_db.id
+
+    return redirect(f"/wall/{session['user_id']}")
+
+@app.route('/dashboard/<int:id>')
+def dashboard_page(id):
+    if not "user_id" in session:
+        return redirect('/')
+    
+    data={
+        'id':id
+    }
+    one_user=User.get_one_user(data)
+    print(one_user)
+    session["first_name"]=one_user['first_name']
+    return render_template ("welcome_dashboard.html")
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    return redirect ("/")
+
+    Model:
+
+    @classmethod
+    def find_user_by_email(cls, email):
+        query="""SELECT * FROM users WHERE email=%(email)s"""
+        response=connectToMySQL(cls.DB).query_db(query, email)
+
+        if len(response)<1:
+            return False
+        return cls(response[0])

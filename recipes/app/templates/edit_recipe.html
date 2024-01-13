@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Recipe</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='edit_recipe.css') }}">
+</head>
+<body>
+    <div class="container">
+        <nav>
+            <h1>Edit recipe</h1>
+            <div class="nav_right">
+                <a href="/recipes">Back to recipes</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </nav>
+        <br>
+        <form action="/edit_recipe" method="post">
+            {%with messages=get_flashed_messages(category_filter=['recipe'])%}
+                    {%if messages%}
+                        {%for message in messages%}
+                            <p>{{message}}</p>
+                        {%endfor%}
+                    {%endif%}
+                {%endwith%}
+            <div class="form_left">
+                <input type="hidden" name="id" value="{{one_recipe_with_user.id}}">
+                <label for="name">
+                    Name:
+                    <input type="text" name="name" value="{{one_recipe_with_user.name}}">
+                </label>
+                <label for="description">
+                    Description:
+                    <textarea name="description" cols="30" rows="10">{{one_recipe_with_user.description}}</textarea>
+                </label>
+                <label for="instructions">
+                    Instructions:
+                    <textarea name="instructions"  cols="30" rows="10">{{one_recipe_with_user.instructions}}</textarea>
+                </label>
+            </div>
+            <div class="form_right">
+                <label for="date_cooked">
+                    Date Cooked:
+                    <input type="date" name="date_cooked" value={{one_recipe_with_user.date_cooked}}>
+                </label>
+                <label for="less_than_30">Less than 30?</label>
+                <label>Yes</label>
+                <input type="radio" name="less_than_30" value=1 {% if one_recipe_with_user.less_than_30 == 1 %}checked {%endif%}>
+                <label>No</label>
+                <input type="radio" name="less_than_30" value=0 {%  if one_recipe_with_user.less_than_30 == 0 %} checked {%endif%}>
+                <button>Submit</button>
+            </div>
+        </form>
+    </div>
+    
+</body>
+</html>
