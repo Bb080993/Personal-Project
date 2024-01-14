@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Book Summary</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='createSummary.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <h1>Forgot the Plot!</h1>
+            <p>A website to keep track of all the summaries of books that you've read!</p>
+            <a class="logoutLink" href="/logout">Logout</a>
+        </div>
+        <main>
+            <h2>Create Book Summary</h2>
+            <form action="/createSummaryForm" method="post">
+                {%with messages=get_flashed_messages(category_filter=['book'])%}
+                        {%if messages%}
+                            {%for message in messages%}
+                                <p>{{message}}</p>
+                            {%endfor%}
+                        {%endif%}
+                    {%endwith%}
+                <input type="hidden" name="user_id" value="{{session['user_id']}}">
+
+                <label for="title">
+                    Book title:
+                </label>
+                <input type="text" name="title">
+
+                <label for="author">
+                    Author Name:
+                </label>
+                <input type="text" name="author">
+                
+                <label for="summary">
+                    Summarize the plot of the book: 
+                </label>
+                <textarea name="summary" cols="30" rows="10"></textarea>
+
+                <button>Submit</button>
+            </form>
+        </main>
+    </div>
+</body>
+</html>
