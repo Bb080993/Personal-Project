@@ -67,6 +67,17 @@ def home_page():
         
     return render_template("home.html", user=user )
 
+@app.route('/create')
+def createSummaryPage():
+    if not "user_id" in session:
+        return redirect("/")
+    
+    data={
+        "id": session["user_id"]
+    }
+    user=User.get_user_by_id(data)
+    return render_template("createSummary.html", user=user)
+
 @app.route('/logout')
 def logout():
     session.clear()

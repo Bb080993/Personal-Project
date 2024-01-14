@@ -18,17 +18,15 @@
 <body>
     <div class="container">
         <div class="nav">
-            <div class="navCenter">
                 <h1>Forgot the Plot!</h1>
-            </div>
-            <!-- <div class="logout"> -->
-                <a class="logout" href="/logout">Logout</a>
-            <!-- </div> -->
+                <p>A website to keep track of all the summaries of books that you've read!</p>
+                <a class="logoutLink" href="/logout">Logout</a>
         </div>
         <main>
-            <h4>Welcome book lover {{user.first_name}}</h4>
-            <p>A website to keep track of all the summaries of books that you've read!</p>
-            <p>What do you want to do?</p>
+            <div class="welcome">
+                <h2>Welcome book lover {{user.first_name}}!</h2>
+                <h3>What do you want to do?</h3>
+            </div>
             <div class="options">
                 <div class="my">
                     <a href="">My Plot Summaries</a>
