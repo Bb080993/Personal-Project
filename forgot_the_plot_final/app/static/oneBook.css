@@ -30,22 +30,3 @@
 h1, .logoutLink, p, a{
     background-color: rgb(244,241,234);
 }
-
-td, th {
-    text-align: center;
-    padding: 5px;
-  }
-
-/* th{
-    text-decoration: underline;
-} */
-h2{
-    margin-bottom: 25px;
-    text-decoration: underline;
-}
-main{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-

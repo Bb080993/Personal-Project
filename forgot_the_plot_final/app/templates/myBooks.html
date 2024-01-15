@@ -8,18 +8,33 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Genos:wght@200&family=Salsa&display=swap" rel="stylesheet">
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"> -->
 </head>
 <body>
     <div class="container">
         <div class="nav">
             <h1>Forgot the Plot!</h1>
             <p>A website to keep track of all the summaries of books that you've read!</p>
+            <a href="/home">Back to homepage</a>
             <a class="logoutLink" href="/logout">Logout</a>
         </div>
         <main>
             <h2>My Plot Summaries</h2>
             <div class="allBooks">
-
+                <table class="table table-hover">
+                    <tr>
+                        <th><i>Book Title</i></th>
+                        <th><i>Author Name</i></th>
+                        <th><i>Date Created</i></th>
+                    </tr>
+                    {%for book in all_books%}
+                    <tr>
+                        <td><a href="/oneBook/{{book.id}}">{{book.title}}</a></td>
+                        <td>{{book.author}}</td>
+                        <td>{{book.createdAt}}</td>
+                    </tr>
+                    {%endfor%}
+                </table>
             </div>
         </main>
 

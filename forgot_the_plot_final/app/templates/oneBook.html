@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Book</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='oneBook.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Genos:wght@200&family=Salsa&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <h1>Forgot the Plot!</h1>
+            <p>A website to keep track of all the summaries of books that you've read!</p>
+            <a href="/home">Back to homepage</a>
+            <a class="logoutLink" href="/logout">Logout</a>
+        </div>
+        <main>
+            <h2>{{one_book_with_user.title}}</h2>
+            <p>Author: {{one_book_with_user.author}}</p>
+            <p>Summary: {{one_book_with_user.summary}}</p>
+            <h3>Add a character!</h3>
+            <form action="/add/character">
+                <input type="hidden" name="book_id" value="{{one_book_with_user.id}}">
+
+                <label for="name">
+                    Character name:
+                </label>
+                <input type="text" name="name">
+
+                <label for="description">
+                    Character description:
+                </label>
+                <textarea name="description" cols="30" rows="10"></textarea>
+
+                <button>Submit</button>
+            </form>
+        </main>
+    </div>
+</body>
+</html>

@@ -47,3 +47,14 @@ def my_books():
     }
     all_books=Book.books_by_user(data)
     return render_template("myBooks.html", all_books=all_books)
+
+@app.route('/oneBook/<int:id>')
+def one_book(id):
+    if not "user_id" in session:
+        return redirect("/")
+    data={
+        "id":id
+    }
+    one_book_with_user=Book.one_book_with_user(data)
+
+    return render_template("oneBook.html", one_book_with_user=one_book_with_user)
