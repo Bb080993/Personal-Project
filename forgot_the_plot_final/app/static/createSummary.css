@@ -4,6 +4,7 @@
     box-sizing: border-box;
     background-color: #F9F7F4;
     color:darkmagenta;
+    font-family: 'Genos', sans-serif;
 }
 
 .container{
@@ -22,14 +23,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 10%;
-    padding:0px 15px;
+    padding:15px 30px 15px 15px;
     margin-bottom: 25px;
     
 }
 
 
-h1, .logoutLink, p{
+h1, .logoutLink, p, a{
     background-color: rgb(244,241,234);
 }
 
@@ -50,4 +50,11 @@ form{
     border-radius: 25px;
     justify-content: space-between;
     height: 400px;
+    margin-bottom: 5px;
+}
+
+button, input, textarea{
+    border: 2px solid darkmagenta;
+    border-radius: 25px;
+    padding:5px;
 }

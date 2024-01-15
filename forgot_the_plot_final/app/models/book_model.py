@@ -22,6 +22,13 @@ class Book:
         results=connectToMySQL(cls.DB).query_db(query, data)
         return results
     
+    @classmethod
+    def books_by_user(cls, data):
+        query=  """
+                SELECT * FROM books WHERE user_id=%(id)s
+                """
+        return connectToMySQL(cls.DB).query_db(query, data)
+    
     @staticmethod
     def validate_new_summary(data):
         is_valid=True

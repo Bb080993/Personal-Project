@@ -6,8 +6,9 @@ from flask_bcrypt import Bcrypt
 bcrypt=Bcrypt(app)
 
 
-
+# this page has the form to create a book summary
 @app.route('/createSummary')
+#make sure user is logged in otherwise they get redirected to login page
 def createSummaryPage():
     if not "user_id" in session:
         return redirect("/")
@@ -35,3 +36,14 @@ def createSummaryForm():
     # if validations check out, send info through form and into db
     Book.create_summary(data)
     return redirect("/home")
+
+@app.route('/my/books')
+def my_books():
+    if not "user_id" in session:
+        return redirect("/")
+    
+    data={
+        "id": session["user_id"]
+    }
+    all_books=Book.books_by_user(data)
+    return render_template("myBooks.html", all_books=all_books)
