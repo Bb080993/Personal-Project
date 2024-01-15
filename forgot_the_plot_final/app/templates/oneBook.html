@@ -12,31 +12,36 @@
 <body>
     <div class="container">
         <div class="nav">
-            <h1>Forgot the Plot!</h1>
-            <p>A website to keep track of all the summaries of books that you've read!</p>
-            <a href="/home">Back to homepage</a>
-            <a class="logoutLink" href="/logout">Logout</a>
+            <h1 class="navbar">Forgot the Plot!</h1>
+            <p class="navbar">A website to keep track of all the summaries of books that you've read!</p>
+            <a href="/home" class="navbar">Back to homepage</a>
+            <a class="navbar" href="/logout">Logout</a>
         </div>
         <main>
-            <h2>{{one_book_with_user.title}}</h2>
-            <p>Author: {{one_book_with_user.author}}</p>
-            <p>Summary: {{one_book_with_user.summary}}</p>
-            <h3>Add a character!</h3>
-            <form action="/add/character">
-                <input type="hidden" name="book_id" value="{{one_book_with_user.id}}">
-
-                <label for="name">
-                    Character name:
-                </label>
-                <input type="text" name="name">
-
-                <label for="description">
-                    Character description:
-                </label>
-                <textarea name="description" cols="30" rows="10"></textarea>
-
-                <button>Submit</button>
-            </form>
+            <div class="left">
+                <h2>{{one_book_with_user.title}}</h2>
+                <p>Author: {{one_book_with_user.author}}</p>
+                <p>Summary: {{one_book_with_user.summary}}</p>
+                <p>Characters:</p>
+            </div>
+            <div class="right">
+                <h3>Add a character!</h3>
+                <form action="/add/character">
+                    <input type="hidden" name="book_id" value="{{one_book_with_user.id}}">
+    
+                    <label for="name">
+                        Character name:
+                    </label>
+                    <input type="text" name="name">
+    
+                    <label for="description">
+                        Character description:
+                    </label>
+                    <textarea name="description" cols="30" rows="10"></textarea>
+    
+                    <button>Submit</button>
+                </form>
+            </div>
         </main>
     </div>
 </body>

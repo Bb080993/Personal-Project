@@ -26,7 +26,6 @@ def createSummaryForm():
     if not Book.validate_new_summary(request.form):
         return redirect("/createSummary")
     # send through data dictionary to db query
-    print("REQUEST ID", request.form["user_id"])
     data={
         "user_id":request.form["user_id"],
         "title":request.form["title"],
@@ -34,8 +33,9 @@ def createSummaryForm():
         "summary":request.form["summary"]
     } 
     # if validations check out, send info through form and into db
-    Book.create_summary(data)
-    return redirect("/home")
+    book=Book.create_summary(data)
+    print("ERROR HERE", book)
+    return redirect(f"/oneBook/{book}")
 
 @app.route('/my/books')
 def my_books():
