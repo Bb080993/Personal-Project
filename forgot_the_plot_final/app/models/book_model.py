@@ -1,7 +1,6 @@
 from app.config.mysqlconnection import connectToMySQL
 from app.models import user_model
 from app.models import character_model
-import pprint
 
 from flask import flash
 
@@ -137,41 +136,18 @@ class Book:
         # print("Characters", book.characters)
         return book.characters
 
-
-
-
-
-
-    # @classmethod
-    # def get_all_characters_from_book(cls, data):
-    #     query="""
-    #             SELECT * FROM characters
-    #             LEFT JOIN books ON books.id=characters.book_id
-    #             WHERE books.id=%(id)s
-    #         """
-    #     results=connectToMySQL(cls.DB).query_db(query, data)
-    #     print("RESULTS", results)
-    #     all_characters=[]
+#search by title containing
+    @classmethod
+    def search_by_title(cls, data):
+        print("DATA", data)
+        query=  """
+                SELECT * FROM books
+                WHERE title LIKE %(title)s
+                """
+        results=connectToMySQL(cls.DB).query_db(query, data)
+        print("SEARCH RESULTS", results)
+        return results
         
-    #     for row in results:
-    #         one_character=cls(row)
-    #         one_character_book_info={
-    #             "id":row["books.id"],
-    #             "title":row["title"],
-    #             "author":row["author"],
-    #             "summary":row["summary"],
-    #             "createdAt":row["books.createdAt"],
-    #             "updatedAt": row["books.updatedAt"]
-    #         }
-    #         # book=Book(one_character_book_info)
-    #         # print("CHARACTER", one_character)
-    #         # print(one_character.book)
-    #         # one_character.book=book
-            
-    #         all_characters.append(one_character)
-
-    #     print("All characters in book", all_characters)
-    #     return all_characters
 
  #validate book in form   
     @staticmethod

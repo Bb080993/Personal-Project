@@ -58,9 +58,9 @@ def one_book(id):
     one_book_with_user=Book.one_book_with_user(data)
     # print("ID!!!", one_book_with_user.created_by.id)
     book_characters=Book.get_all_characters_from_book(data)
-    # print("BOOK CHARACTERS", book_characters)
+    print("BOOK CHARACTERS", book_characters)
     session["book_id"]=one_book_with_user.id
-    print("SESSION", session["book_id"])
+    # print("SESSION", session["book_id"])
     return render_template("oneBook.html", one_book_with_user=one_book_with_user, book_characters=book_characters)
 
 @app.route('/edit/book/<int:id>')
@@ -89,7 +89,22 @@ def update_book():
 
     return redirect(f"/oneBook/{request.form['id']}")
        
+@app.route('/search')
+def search_page():
+    data={
+        "title":session['title']
+    }
+    search_results=Book.search_by_title(data)
+    print("SEARCH RESULTS", search_results)
+    return render_template('search.html', search_results=search_results)
 
+@app.route('/search_form', methods=['POST'])
+def search_form():
+    
+    session['title']=request.form['title']
+   
+    # print("TITLE", session['title'])
+    return redirect('/search')
 
 @app.route('/delete/<int:id>')
 def delete_book(id):

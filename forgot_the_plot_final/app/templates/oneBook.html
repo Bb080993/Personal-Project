@@ -31,6 +31,7 @@
                 <p><u>Author:</u> {{one_book_with_user.author}}</p><br>
                 <p><u>Summary:</u> {{one_book_with_user.summary}}</p><br>
                 <p><u>Characters:</u></p><br>
+               
                 <table>
                     <tr>
                         <th>Character Name</th>
@@ -41,13 +42,19 @@
                     </tr>
                     
                     {%for character in book_characters%}
+                        {%if character.name==None%}
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        {%else%}
                         <tr>
                             <td>{{character.name}} </td>
                             <td>{{character.description}}</td>
                             {%if one_book_with_user.created_by.id==session['user_id']%}
-                            <td><a href="/edit/character/{{character.id}}">Edit</a> <a href="/delete/character/{{character.id}}">Delete</a></td>
+                            <td style="width: 100px;;"><a href="/edit/character/{{character.id}}" >Edit</a> <a href="/delete/character/{{character.id}}">Delete</a></td>
                             {%endif%}
                         </tr>
+                        {%endif%}
                     {%endfor%}
                 </table>
                 

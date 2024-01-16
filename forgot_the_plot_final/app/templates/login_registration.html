@@ -33,7 +33,7 @@
                     {%with messages=get_flashed_messages(category_filter=['register'])%}
                         {%if messages%}
                             {%for message in messages%}
-                                <p>{{message}}</p>
+                                <p style="background-color: rgb(7, 149, 157);">{{message}}</p>
                             {%endfor%}
                         {%endif%}
                     {%endwith%}
@@ -71,7 +71,7 @@
                     {%with messages=get_flashed_messages(category_filter=['login'])%}
                         {%if messages%}
                             {%for message in messages%}
-                                <p>{{message}}</p>
+                                <p style="background-color: rgb(7, 149, 157);">{{message}}</p>
                             {%endfor%}
                         {%endif%}
                     {%endwith%}

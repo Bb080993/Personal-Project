@@ -1,7 +1,7 @@
-function hover(){
-    document.getElementById("bookTitle").style.textDecoration="underline"
+function hover(element){
+    element.style.textDecoration="underline"
 }
 
-function hoverOff(){
-    document.getElementById("bookTitle").style.textDecoration="none"
+function hoverOff(element){
+    element.style.textDecoration="none"
 }

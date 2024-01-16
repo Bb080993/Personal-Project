@@ -5,9 +5,9 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    color: rgb(107, 217, 242);
-    /* font-family: 'Genos', sans-serif; */
-    
+    color: darkmagenta;
+    font-family: 'Genos', sans-serif;
+    background-color: #F9F7F4;
 }
 
 .container{
@@ -24,7 +24,11 @@
 }
 
 h1, h4{
-    color: rgb(7, 149, 157);
+    color: darkmagenta;
+}
+
+h2{
+    background-color: rgb(244,241,234);
 }
 main{
     display: flex;
@@ -37,19 +41,21 @@ img{
 
 
 .register{
-    border: 2px solid rgb(12, 128, 154);
+    border: 2px solid darkmagenta;
+    border-radius: 25px;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 10px;
-    background-color: rgb(7, 149, 157);
+    background-color: rgb(244,241,234);
     padding: 10px;
     height: 400px;
 }
 
 
 .login{
-    border: 2px solid rgb(12, 128, 154);
+    border: 2px solid darkmagenta;
+    border-radius: 25px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -57,7 +63,7 @@ img{
     margin: 10px;
     padding: 10px;
     color: rgb(107, 217, 242);
-    background-color: rgb(7, 149, 157);
+    background-color: rgb(244,241,234);
     height: 400px;
 }
 form{
@@ -67,13 +73,22 @@ form{
     align-items: center;
     padding: 10px;
     height: 100%;
+    background-color: rgb(244,241,234);
 
 }
+input{
+    border-radius: 50px;
+    border: 2px solid darkmagenta;
+}
+label{
+    background-color: rgb(244,241,234);
+}
 button{
-    background-color:rgb(107, 217, 242);
-    color: rgb(7, 149, 157);
+    background-color:darkmagenta;
+    color: rgb(244,241,234);
     border-radius: 20px;
-    border: 2px solid rgb(12, 128, 154);
+    border: 2px solid darkmagenta;
     padding: 5px;
     
 }
+
