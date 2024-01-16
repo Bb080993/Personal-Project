@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One Book</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='oneBook.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Genos:wght@200&family=Salsa&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <h1 class="navbar">Forgot the Plot!</h1>
+            <p class="navbar">A website to keep track of all the summaries of books that you've read!</p>
+            <a href="/my/books" class="navbar">Back to my books</a>
+            <a href="/home" class="navbar">Back to homepage</a>
+            <a class="navbar" href="/logout">Logout</a>
+        </div>
+        <main>
+        
+            <div class="right">
+                <h3>Edit character!</h3>
+                <form action="/character_edit" method="post">
+                    {%with messages=get_flashed_messages(category_filter=['character'])%}
+                        {%if messages%}
+                            {%for message in messages%}
+                                <p>{{message}}</p>
+                            {%endfor%}
+                        {%endif%}
+                    {%endwith%}
+                    <input type="hidden" name="book_id" value="{{one_character.book_id}}">
+                    <input type="hidden" name="id" value="{{one_character.id}}">
+    
+                    <label for="name">
+                        Character name:
+                    </label>
+                    <input type="text" name="name" value="{{one_character.name}}">
+    
+                    <label for="description">
+                        Character description:
+                    </label>
+                    <textarea name="description" cols="30" rows="10">{{one_character.description}}</textarea>
+    
+                    <button>Submit</button>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

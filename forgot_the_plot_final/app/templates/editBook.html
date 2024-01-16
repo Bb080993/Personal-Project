@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Book Summary</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='createSummary.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Genos:wght@200&family=Salsa&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="nav">
+            <h1>Forgot the Plot!</h1>
+            <p>A website to keep track of all the summaries of books that you've read!</p>
+            <a href="/my/books" class="navbar">Back to my books</a>
+            <a href="/home">Back to homepage</a>
+            <a class="logoutLink" href="/logout">Logout</a>
+        </div>
+        <main>
+            <h2>Edit Book Summary</h2>
+            <form action="/edit_form" method="post">
+                {%with messages=get_flashed_messages(category_filter=['book'])%}
+                        {%if messages%}
+                            {%for message in messages%}
+                                <p>{{message}}</p>
+                            {%endfor%}
+                        {%endif%}
+                    {%endwith%}
+                <input type="hidden" name="user_id" value="{{session['user_id']}}">
+                <input type="hidden" name="id" value="{{one_book_with_user.id}}">
+
+                <label for="title">
+                    Book title:
+                </label>
+                <input type="text" name="title" value="{{one_book_with_user.title}}">
+
+                <label for="author">
+                    Author Name:
+                </label>
+                <input type="text" name="author" value="{{one_book_with_user.author}}">
+                
+                <label for="summary">
+                    Summarize the plot of the book: 
+                </label>
+                <textarea name="summary"  cols="30" rows="10">{{one_book_with_user.summary}}</textarea>
+
+                <button>Edit</button>
+            </form>
+        </main>
+    </div>
+</body>
+</html>

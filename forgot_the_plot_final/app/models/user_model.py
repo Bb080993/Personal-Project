@@ -93,6 +93,7 @@ class User:
 #         for user in results:
 #             user_list.append(cls(user))
 #         return user_list
+    
 #     #Get one from table in database
 #     @classmethod
 #     def get_one_user(cls, id):
@@ -100,6 +101,7 @@ class User:
 #         results= connectToMySQL(cls.DB).query_db(query, id)[0]
 #         print(results)
 #         return results
+    
 #     #Update one from table in database
 #     @classmethod
 #     def update_user_info(cls, data):
@@ -108,6 +110,7 @@ class User:
 #         results=connectToMySQL(cls.DB).query_db(query, data)
 #         print(results)
 #         return results
+    
 #     #Delete from database on specific id
 #     @classmethod
 #     def delete_user(cls, data):
@@ -140,6 +143,7 @@ class User:
 #                 "dojo_id":row ["dojo_id"] }
 #             dojo.ninjas.append(ninja_model.Ninja(ninja_data))
 #         return dojo
+    
 # #Get all of the many with their one
 #    @classmethod
 #     def get_all_recipes_with_user(cls):

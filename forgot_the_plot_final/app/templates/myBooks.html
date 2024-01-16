@@ -20,26 +20,31 @@
         </div>
         <main>
             <h2>My Plot Summaries</h2>
+            {%if all_books%}
             <div class="allBooks">
                 <table class="table table-hover">
                     <tr>
                         <th><i>Book Title</i></th>
                         <th><i>Author Name</i></th>
-                        <th><i>Date Created</i></th>
+                        <th><i>Actions</i></th>
                     </tr>
                     {%for book in all_books%}
                     <tr>
-                        <td><a href="/oneBook/{{book.id}}">{{book.title}}</a></td>
+                        <td><a href="/oneBook/{{book.id}}" onmouseover="hover(this)" onmouseout="hoverOff(this)" class="title" id="bookTitle_{{book.id}}">{{book.title}}</a></td>
                         <td>{{book.author}}</td>
-                        <td>{{book.createdAt}}</td>
+                        <td><a href="/edit/book/{{book.id}}" class="btn">Edit</a> <a href="/delete/{{book.id}}" class="btn">Delete</a></td>
                     </tr>
                     {%endfor%}
                 </table>
+                {%else%}
+                <p>No summaries yet created! Create one <a href="/createSummary">here</a></p>
+                {%endif%}
+
             </div>
         </main>
 
     </div>
 
-    
+    <script type="text/javascript" src="{{ url_for('static', filename='home.js') }}"></script>  
 </body>
 </html>

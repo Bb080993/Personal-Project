@@ -31,13 +31,23 @@
     background-color: rgb(244,241,234);
 }
 td, th {
-    text-align: center;
+    text-align: left;
     padding: 5px;
   }
 
-/* th{
+th{
     text-decoration: underline;
-} */
+}
+
+.btn{
+    
+    text-decoration: none;
+    border: 1px solid darkmagenta;
+    background-color: darkmagenta;
+    color: #F9F7F4;
+    border-radius: 25%;
+    padding: 1px 3px;
+}
 h2{
     margin-bottom: 25px;
     text-decoration: underline;
@@ -46,5 +56,8 @@ main{
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+.title{
+    text-decoration: none;
 }
 

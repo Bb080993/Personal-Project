@@ -11,7 +11,7 @@ class Character:
         self.createdAt = data['createdAt']
         self.updatedAt = data['updatedAt']
         self.book_id=['book_id'] 
-        self.book_in=None
+        self.book= None
 
     @classmethod
     def add_character(cls, data):
@@ -21,6 +21,35 @@ class Character:
                 """
         results=connectToMySQL(cls.DB).query_db(query, data)
         return results
+    
+    @classmethod
+    def find_character(cls, data):
+        query=  """
+                SELECT * FROM characters
+                WHERE id=%(id)s
+                """
+        results=connectToMySQL(cls.DB).query_db(query, data)
+        print("RESULTS", results)
+        return results[0]
+    
+    @classmethod
+    def edit_character(cls,data):
+        query=  """
+                UPDATE characters
+                SET name=%(name)s, description=%(description)s
+                WHERE id=%(id)s
+                """
+        results=connectToMySQL(cls.DB).query_db(query, data)
+        
+        return results
+    
+    @classmethod
+    def delete_character(cls, data):
+        query=  """
+                DELETE FROM characters
+                WHERE id=%(id)s
+                """
+        return connectToMySQL(cls.DB).query_db(query, data)
     
     @staticmethod
     def validate_character(data):

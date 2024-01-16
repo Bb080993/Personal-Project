@@ -42,7 +42,25 @@
                 </div>
             </div>
         </main>
+        <div class="bottom">
+            <h2>Not sure where to start? Check out the most recent reviews from users: </h2>
+            <table>
+                <tr>
+                    <th style="text-decoration: underline;"><i>Book Title</i></th>
+                    <th style="text-decoration: underline;"><i>Author</i></th>
+                    <th style="text-decoration: underline;"><i>Summary By</i></th>
+                </tr>
+                {%for book in all_books%}
+                <tr>
+                    <td class="allTitles"><a href="/oneBook/{{book.id}}" onmouseover="hover(this)" onmouseout="hoverOff(this)" id="bookTitle">{{book.title}}</a></td>
+                    <td>{{book.author}}</td>
+                    <td>{{book.created_by.username}}</td>
+                </tr>
+                {%endfor%}
+
+            </table>
+        </div>
     </div>
-    
+    <script type="text/javascript" src="{{ url_for('static', filename='home.js') }}"></script>
 </body>
 </html>

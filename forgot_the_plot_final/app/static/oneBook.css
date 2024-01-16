@@ -31,6 +31,10 @@
     background-color: rgb(244,241,234);
 }
 
+h2{
+    margin-right: 10px;
+}
+
 main{
     display: flex;
     justify-content: space-around;
@@ -66,4 +70,28 @@ button, input, textarea{
     border: 2px solid darkmagenta;
     border-radius: 25px;
     padding:5px;
+}
+
+.btn{
+    
+    text-decoration: none;
+    border: 1px solid darkmagenta;
+    background-color: darkmagenta;
+    color: #F9F7F4;
+    border-radius: 25%;
+    padding: 3px;
+}
+
+th{
+    font-style: italic;
+
+}
+td, th {
+    text-align: left;
+    padding: 5px;
+  }
+
+.top{
+    display: flex;
+    align-items: center;
 }

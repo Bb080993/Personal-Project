@@ -1,5 +1,7 @@
 from app.config.mysqlconnection import connectToMySQL
 from app.models import user_model
+from app.models import character_model
+import pprint
 
 from flask import flash
 
@@ -16,6 +18,7 @@ class Book:
         self.created_by=None
         self.characters=[]
 
+# create a book summary
     @classmethod
     def create_summary(cls, data):
         query=  """
@@ -25,13 +28,16 @@ class Book:
         results=connectToMySQL(cls.DB).query_db(query, data)
         return results
     
+#   get all the books from one user
     @classmethod
     def books_by_user(cls, data):
         query=  """
                 SELECT * FROM books WHERE user_id=%(id)s
+                ORDER BY books.id DESC 
                 """
         return connectToMySQL(cls.DB).query_db(query, data)
-    
+
+#get one single book with its user    
     @classmethod
     def one_book_with_user(cls, data):
         query=  """
@@ -55,9 +61,119 @@ class Book:
             }
             user=user_model.User(one_book_user_info)
             one_book_with_user.created_by=user
-        print("!ONE Book WITH USER!",one_book_with_user)
+        # print("!ONE Book WITH USER!",one_book_with_user)
         return one_book_with_user
+
+#edit info for a book   
+    @classmethod
+    def edit_one_book(cls, data):
+        query=  """
+                UPDATE books
+                SET title=%(title)s, author=%(author)s, summary=%(summary)s
+                WHERE id=%(id)s
+                """
+        results=connectToMySQL(cls.DB).query_db(query, data)
+        return results
+
+#delete one book    
+    @classmethod
+    def delete(cls, data):
+        query=  """
+                DELETE FROM books
+                WHERE id=%(id)s
+                """
+        return connectToMySQL(cls.DB).query_db(query, data)
+
+#get all books in the db with its user info    
+    @classmethod
+    def get_all_books_with_user(cls):
+        query="""
+                SELECT * FROM books
+                LEFT JOIN users ON users.id=books.user_id
+                ORDER BY books.id DESC 
+                LIMIT 10
+                
+            """
+        results=connectToMySQL(cls.DB).query_db(query)
+        all_books=[]
+        for row in results:
+            one_book=cls(row)
+            one_book_user_info={
+                "id":row["users.id"],
+                "first_name":row["first_name"],
+                "last_name":row["last_name"],
+                "email":row["email"],
+                "username":row["username"],
+                "password":row["password"],
+                "createdAt":row["users.createdAt"],
+                "updatedAt": row["users.updatedAt"]
+            }
+            user=user_model.User(one_book_user_info)
+            one_book.created_by=user
+            # print(one_book.__dict__)
+            all_books.append(one_book)
+        # print("ALL books with user", all_books)
+        return all_books
     
+#get all characters for one book
+    @classmethod
+    def get_all_characters_from_book(cls, data):
+        
+        query="""SELECT * FROM books
+        LEFT JOIN characters ON characters.book_id=books.id
+        WHERE books.id=%(id)s;"""
+        results=connectToMySQL(cls.DB).query_db(query, data)
+        # print("BOOK CHARACTERS", results)
+        book=cls(results[0])
+        # print("!!!!!!!", book)
+        for row in results:
+            character_data= {"id":row ["characters.id"],
+                "name" :row ["name"],
+                "description": row ["description"],
+                "createdAt": row ["characters.createdAt"],
+                "updatedAt" :row ["characters.updatedAt"],
+                "book_id":row ["book_id"] }
+            book.characters.append(character_model.Character(character_data))
+        # print("Characters", book.characters)
+        return book.characters
+
+
+
+
+
+
+    # @classmethod
+    # def get_all_characters_from_book(cls, data):
+    #     query="""
+    #             SELECT * FROM characters
+    #             LEFT JOIN books ON books.id=characters.book_id
+    #             WHERE books.id=%(id)s
+    #         """
+    #     results=connectToMySQL(cls.DB).query_db(query, data)
+    #     print("RESULTS", results)
+    #     all_characters=[]
+        
+    #     for row in results:
+    #         one_character=cls(row)
+    #         one_character_book_info={
+    #             "id":row["books.id"],
+    #             "title":row["title"],
+    #             "author":row["author"],
+    #             "summary":row["summary"],
+    #             "createdAt":row["books.createdAt"],
+    #             "updatedAt": row["books.updatedAt"]
+    #         }
+    #         # book=Book(one_character_book_info)
+    #         # print("CHARACTER", one_character)
+    #         # print(one_character.book)
+    #         # one_character.book=book
+            
+    #         all_characters.append(one_character)
+
+    #     print("All characters in book", all_characters)
+    #     return all_characters
+
+ #validate book in form   
     @staticmethod
     def validate_new_summary(data):
         is_valid=True

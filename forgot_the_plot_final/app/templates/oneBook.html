@@ -8,25 +8,63 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Genos:wght@200&family=Salsa&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <div class="container">
         <div class="nav">
             <h1 class="navbar">Forgot the Plot!</h1>
             <p class="navbar">A website to keep track of all the summaries of books that you've read!</p>
+            <a href="/my/books" class="navbar">Back to my books</a>
             <a href="/home" class="navbar">Back to homepage</a>
             <a class="navbar" href="/logout">Logout</a>
         </div>
         <main>
             <div class="left">
-                <h2>{{one_book_with_user.title}}</h2>
-                <p>Author: {{one_book_with_user.author}}</p>
-                <p>Summary: {{one_book_with_user.summary}}</p>
-                <p>Characters:</p>
+                <div class="top">
+                    <h2>{{one_book_with_user.title}}</h2>
+                    {%if one_book_with_user.created_by.id==session['user_id']%}
+                    <p><a href="/edit/book/{{one_book_with_user.id}}" class="btn">Edit</a> <a href="/delete/{{one_book_with_user.id}}" class="btn">Delete</a></p>
+                    {%endif%}
+                </div>
+                <br>
+                <p><u>Author:</u> {{one_book_with_user.author}}</p><br>
+                <p><u>Summary:</u> {{one_book_with_user.summary}}</p><br>
+                <p><u>Characters:</u></p><br>
+                <table>
+                    <tr>
+                        <th>Character Name</th>
+                        <th>Description</th>
+                        {%if one_book_with_user.created_by.id==session['user_id']%}
+                        <th>Actions</th>
+                        {%endif%}
+                    </tr>
+                    
+                    {%for character in book_characters%}
+                        <tr>
+                            <td>{{character.name}} </td>
+                            <td>{{character.description}}</td>
+                            {%if one_book_with_user.created_by.id==session['user_id']%}
+                            <td><a href="/edit/character/{{character.id}}">Edit</a> <a href="/delete/character/{{character.id}}">Delete</a></td>
+                            {%endif%}
+                        </tr>
+                    {%endfor%}
+                </table>
+                
+                
             </div>
+
+            {%if one_book_with_user.created_by.id==session['user_id']%}
             <div class="right">
                 <h3>Add a character!</h3>
-                <form action="/add/character">
+                <form action="/character_form" method="post">
+                    {%with messages=get_flashed_messages(category_filter=['character'])%}
+                        {%if messages%}
+                            {%for message in messages%}
+                                <p>{{message}}</p>
+                            {%endfor%}
+                        {%endif%}
+                    {%endwith%}
                     <input type="hidden" name="book_id" value="{{one_book_with_user.id}}">
     
                     <label for="name">
@@ -42,6 +80,7 @@
                     <button>Submit</button>
                 </form>
             </div>
+            {%endif%}
         </main>
     </div>
 </body>

@@ -34,7 +34,7 @@ def createSummaryForm():
     } 
     # if validations check out, send info through form and into db
     book=Book.create_summary(data)
-    print("ERROR HERE", book)
+    # print("ERROR HERE", book)
     return redirect(f"/oneBook/{book}")
 
 @app.route('/my/books')
@@ -56,5 +56,46 @@ def one_book(id):
         "id":id
     }
     one_book_with_user=Book.one_book_with_user(data)
+    # print("ID!!!", one_book_with_user.created_by.id)
+    book_characters=Book.get_all_characters_from_book(data)
+    # print("BOOK CHARACTERS", book_characters)
+    session["book_id"]=one_book_with_user.id
+    print("SESSION", session["book_id"])
+    return render_template("oneBook.html", one_book_with_user=one_book_with_user, book_characters=book_characters)
 
-    return render_template("oneBook.html", one_book_with_user=one_book_with_user)
+@app.route('/edit/book/<int:id>')
+def edit_book(id):
+    if not "user_id" in session:
+        return redirect("/")
+    data={
+        "id":id
+    }
+    one_book_with_user=Book.one_book_with_user(data)
+
+    return render_template("editBook.html", one_book_with_user=one_book_with_user)
+
+@app.route('/edit_form', methods=["POST"])
+def update_book():
+    data={
+        "user_id": request.form['user_id'],
+        "id": request.form['id'],
+        "title": request.form['title'],
+        "author": request.form['author'],
+        "summary": request.form['summary']
+    }
+    if not Book.validate_new_summary(data):
+        return redirect(f"/edit/book/{request.form['id']}")
+    Book.edit_one_book(data)
+
+    return redirect(f"/oneBook/{request.form['id']}")
+       
+
+
+@app.route('/delete/<int:id>')
+def delete_book(id):
+    data={
+        "id":id
+    }
+    Book.delete(data)
+
+    return redirect('/my/books')
