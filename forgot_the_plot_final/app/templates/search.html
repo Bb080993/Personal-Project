@@ -12,13 +12,34 @@
 <body>
     <div class="container">
         <div class="nav">
-            <h1>Forgot the Plot!</h1>
-            <p>A website to keep track of all the summaries of books that you've read!</p>
-            <a class="logoutLink" href="/logout">Logout</a>
+            <h1 class="navbar">Forgot the Plot!</h1>
+            <p class="navbar">A website to keep track of all the summaries of books that you've read!</p>
+            <a href="/my/books" class="navbar">Back to my books</a>
+            <a href="/home" class="navbar">Back to homepage</a>
+            <a class="navbar" href="/logout">Logout</a>
         </div>
         <main>
-            <h2>Search page</h2>
+            <h2>Search Results</h2>
+            {%if  not search_results%}
+            <p>No books match your search. Add your own entry?</p>
+            <a href="createSummary">Create a new plot summary</a>
+            {%else%}
+            <table>
+                <tr>
+                    <th>Book Title</th>
+                    <th>Author</th>
+                </tr>
+                {%for result in search_results%}
+                <tr>
+                    <td><a href="/oneBook/{{result.id}}" onmouseover="hover(this)" onmouseout="hoverOff(this)" >{{result.title}}</a></td>
+                    <td>{{result.author}}</td>
+                </tr>
+                {%endfor%}
+            </table>
+
+            {%endif%}
         </main>
     </div>
+    <script type="text/javascript" src="{{ url_for('static', filename='home.js') }}"></script>
 </body>
 </html>

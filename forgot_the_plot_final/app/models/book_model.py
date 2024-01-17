@@ -140,6 +140,7 @@ class Book:
     @classmethod
     def search_by_title(cls, data):
         print("DATA", data)
+        data["title"]= '%' + data["title"] + '%'
         query=  """
                 SELECT * FROM books
                 WHERE title LIKE %(title)s
