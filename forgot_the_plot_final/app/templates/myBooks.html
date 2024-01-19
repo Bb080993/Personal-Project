@@ -30,7 +30,7 @@
                     </tr>
                     {%for book in all_books%}
                     <tr>
-                        <td><a href="/oneBook/{{book.id}}" onmouseover="hover(this)" onmouseout="hoverOff(this)" >{{book.title}}</a></td>
+                        <td><a href="/oneBook/{{book.id}}" onmouseover="hover(this)" onmouseout="hoverOff(this)" class="title" >{{book.title}}</a></td>
                         <td>{{book.author}}</td>
                         <td><a href="/edit/book/{{book.id}}" class="btn">Edit</a> <a href="/delete/{{book.id}}" class="btn">Delete</a></td>
                     </tr>

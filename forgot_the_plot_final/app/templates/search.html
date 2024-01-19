@@ -31,7 +31,7 @@
                 </tr>
                 {%for result in search_results%}
                 <tr>
-                    <td><a href="/oneBook/{{result.id}}" onmouseover="hover(this)" onmouseout="hoverOff(this)" >{{result.title}}</a></td>
+                    <td ><a href="/oneBook/{{result.id}}" onmouseover="hover(this)" onmouseout="hoverOff(this)" class="title">{{result.title}}</a></td>
                     <td>{{result.author}}</td>
                 </tr>
                 {%endfor%}

@@ -38,3 +38,6 @@ main{
 td, th{
 padding: 5px;
 }
+.title{
+    text-decoration: none;
+}
