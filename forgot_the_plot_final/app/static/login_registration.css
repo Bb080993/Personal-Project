@@ -10,19 +10,6 @@
     background-color: #F9F7F4;
 }
 
-.container{
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 30px;
-    width: 100%;
-    height: 100%;
-    background-color: #F9F7F4;
-
-}
-
 h1, h4{
     color: darkmagenta;
 }
@@ -30,52 +17,7 @@ h1, h4{
 h2{
     background-color: rgb(244,241,234);
 }
-main{
-    display: flex;
-    justify-content: space-between;
-}
 
-img{
-    height: 400px;
-}
-
-
-.register{
-    border: 2px solid darkmagenta;
-    border-radius: 25px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10px;
-    background-color: rgb(244,241,234);
-    padding: 10px;
-    height: 400px;
-}
-
-
-.login{
-    border: 2px solid darkmagenta;
-    border-radius: 25px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    margin: 10px;
-    padding: 10px;
-    color: rgb(107, 217, 242);
-    background-color: rgb(244,241,234);
-    height: 400px;
-}
-form{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 10px;
-    height: 100%;
-    background-color: rgb(244,241,234);
-
-}
 input{
     border-radius: 50px;
     border: 2px solid darkmagenta;
@@ -83,12 +25,179 @@ input{
 label{
     background-color: rgb(244,241,234);
 }
-button{
-    background-color:darkmagenta;
-    color: rgb(244,241,234);
-    border-radius: 20px;
-    border: 2px solid darkmagenta;
-    padding: 5px;
+
+@media only screen and (max-width: 480px){
+    .container{
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 5px;
+        /* justify-content: center; */
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: rgb(244,241,234);
+
+
+    }
+    .login, .register{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 10px;
+        padding: 10px;
+        background-color: rgb(244,241,234);
+        border-radius: 20px ;
+        
+    }
+    button{
+        
+            background-color:darkmagenta;
+            color: rgb(244,241,234);
+            border-radius: 20px;
+            border: 2px solid darkmagenta;
+            padding: 1px;
+            width: 50%;
+            align-self: center;
+        
+    }
     
+}
+
+@media only screen and (min-width: 481px){
+    .container{
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 5px;
+        /* justify-content: center; */
+    }
+    .register{
+        border: 2px solid darkmagenta;
+        border-radius: 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 10px;
+        background-color: rgb(244,241,234);
+        padding: 10px;
+        height: 400px;
+    }
+    
+    
+    .login{
+        border: 2px solid darkmagenta;
+        border-radius: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        margin: 10px;
+        padding: 10px;
+        color: rgb(107, 217, 242);
+        background-color: rgb(244,241,234);
+        height: 400px;
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        padding: 10px;
+        height: 100%;
+        background-color: rgb(244,241,234);
+    
+    }
+    button{
+        background-color:darkmagenta;
+        color: rgb(244,241,234);
+        border-radius: 20px;
+        border: 2px solid darkmagenta;
+        padding: 5px;
+        
+    }
+    main{
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+@media only screen and (min-width: 1024px){
+
+    .container{
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        padding: 30px;
+        width: 100%;
+        height: 100%;
+        background-color: #F9F7F4;
+    
+    }
+    
+    
+    
+    main{
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    
+    
+    
+    .register{
+        border: 2px solid darkmagenta;
+        border-radius: 25px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 10px;
+        background-color: rgb(244,241,234);
+        padding: 10px;
+        height: 400px;
+    }
+    
+    
+    .login{
+        border: 2px solid darkmagenta;
+        border-radius: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        margin: 10px;
+        padding: 10px;
+        color: rgb(107, 217, 242);
+        background-color: rgb(244,241,234);
+        height: 400px;
+    }
+    form{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        padding: 10px;
+        height: 100%;
+        background-color: rgb(244,241,234);
+    
+    }
+    
+    button{
+        background-color:darkmagenta;
+        color: rgb(244,241,234);
+        border-radius: 20px;
+        border: 2px solid darkmagenta;
+        padding: 5px;
+        
+    }
+
 }
 

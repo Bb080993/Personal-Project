@@ -24,7 +24,8 @@
                 <div class="top">
                     <h2>{{one_book_with_user.title}}</h2>
                     {%if one_book_with_user.created_by.id==session['user_id']%}
-                    <p><a href="/edit/book/{{one_book_with_user.id}}" class="btn">Edit</a> <a href="/delete/{{one_book_with_user.id}}" class="btn">Delete</a></p>
+                    <p><a href="/edit/book/{{one_book_with_user.id}}" class="btn">Edit</a></p>
+                    <p><a href="/delete/{{one_book_with_user.id}}" class="btn">Delete</a></p> 
                     {%endif%}
                 </div>
                 <br>
@@ -43,9 +44,9 @@
                     
                     {%for character in book_characters%}
                         {%if character.name==None%}
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <tr>
+                            <td>No characters created yet!</td>
+                        </tr>
                         {%else%}
                         <tr>
                             <td>{{character.name}} </td>
