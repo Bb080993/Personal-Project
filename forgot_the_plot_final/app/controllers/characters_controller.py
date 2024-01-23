@@ -47,7 +47,11 @@ def update_character():
     return redirect(f"/oneBook/{request.form['book_id']}")
 
 @app.route('/delete/character/<int:id>')
+
 def delete_one_character(id):
+    if not "user_id" in session:
+        return redirect("/")
+    
     data={
         "id": id
     }

@@ -77,23 +77,6 @@ def logout():
     return redirect ("/")
 
 
-# @app.route('/dojo/<int:id>')
-# def dojo_ninjas(id):
-#     data={
-#         "id":id
-#     }
-#     one_dojo=Dojo.get_ninjas_from_dojo(data)
-#     session['id']=one_dojo.id
-#     return render_template("dojo_show.html", one_dojo=one_dojo)
-
-# @app.route('/ninja/delete/<int:id>')
-# def delete_ninja(id):
-#     data={
-#         "id":id
-#     }
-#     Dojo.delete_ninja(data)
-#     return redirect(f'/dojo/{session["id"]}')
-#
 
 
 

@@ -91,6 +91,8 @@ def update_book():
        
 @app.route('/search')
 def search_page():
+    if not "user_id" in session:
+        return redirect("/")
     data={
         "title":session['title']
     }
@@ -108,6 +110,8 @@ def search_form():
 
 @app.route('/delete/<int:id>')
 def delete_book(id):
+    if not "user_id" in session:
+        return redirect("/")
     data={
         "id":id
     }
